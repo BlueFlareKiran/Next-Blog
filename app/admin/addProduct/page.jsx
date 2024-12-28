@@ -11,7 +11,7 @@ const Page = () => {
     const [data, setData] = useState({
         title: "",
         description: "",
-        catagory: "Startup", // Updated to "catagory"
+        category: "Startup", // Updated to "category"
         author: "Kiran",
         authorImg: "author_img.png",
     });
@@ -36,7 +36,7 @@ const Page = () => {
         const formData = new FormData();
         formData.append("title", data.title);
         formData.append("description", data.description);
-        formData.append("catagory", data.catagory);
+        formData.append("category", data.category);
         formData.append("author", data.author);
         formData.append("authorImg", data.authorImg);
         formData.append("image", image);
@@ -45,6 +45,14 @@ const Page = () => {
             const response = await axios.post("/api/blog", formData);
             if (response?.data?.success) {
                 toast.success(response.data.message || "Blog added successfully!");
+                setImage(false);
+                setData({
+                    title: "",
+                    description: "",
+                    category: "Startup",
+                    author: "Kiran",
+                    authorImg: "author_img.png",
+                });
             } else {
                 toast.error(response.data.message || "Failed to add the blog.");
             }
@@ -96,12 +104,12 @@ const Page = () => {
                 value={data.description}
             />
 
-            <p className="text-xl mt-4">Blog catagory</p>
+            <p className="text-xl mt-4">Blog category</p>
             <select
-                name="catagory"
+                name="category"
                 className="w-40 mt-4 px-4 py-3 border text-gray-500"
                 onChange={onChangeHandler}
-                value={data.catagory}
+                value={data.category}
             >
                 <option value="Startup">Startup</option>
                 <option value="Technology">Technology</option>

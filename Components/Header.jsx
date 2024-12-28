@@ -1,8 +1,26 @@
 import { assets } from "@/Assets/assets";
-import React from "react";
+import React, {useState} from "react";
 import Image from "next/image";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 const Header = () => {
+
+    const [email, setEmail] = useState("");
+    const onSubmitHandler = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("email", email);
+        const response=await axios.post('/api/email',formData);
+        if(response.data.success){
+            toast.success(response.data.msg);
+            setEmail("");
+        }
+        else {
+            toast.error("Error");
+        }
+    }
+
     return (
         <div className="py-5 px-5 md:px-12 lg:px-28">
             {/* Logo and Button */}
@@ -31,16 +49,20 @@ const Header = () => {
 
             {/* Subscription Form */}
             <form
+                onSubmit={onSubmitHandler}
                 className="flex items-center justify-between max-w-[500px] mx-auto mt-10 border border-black rounded-md overflow-hidden shadow-[-7px_7px_0px_#000000]"
                 action=""
             >
                 <input
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
                     type="email"
                     placeholder="Enter your email"
                     className="pl-4 py-3 w-full text-sm sm:text-base outline-none placeholder-gray-500"
                     aria-label="Email Address"
                 />
                 <button
+
                     className="border-l border-black bg-black text-white py-3 px-6 sm:px-8 hover:bg-gray-700 active:bg-gray-600"
                     type="submit"
                 >

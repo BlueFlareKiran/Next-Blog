@@ -29,9 +29,9 @@ const BlogItem = ({title,description,category,image,id}) => {
                 </h1>
 
                 {/* Blog Description */}
-                <p className="text-sm text-gray-600 mb-4">
-                    {description}
-                </p>
+                <div className="blog-content"
+                  dangerouslySetInnerHTML={{ __html: description.slice(0,120)}}>
+                </div>
 
                 {/* Read More Link */}
                 <Link href={`/blogs/${id}`} className="inline-flex items-center gap-2 text-sm font-semibold text-black hover:text-gray-700 cursor-pointer transition-colors">
