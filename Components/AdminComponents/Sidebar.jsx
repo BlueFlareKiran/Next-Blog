@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { assets } from '@/Assets/assets';
-import Link from "next/link"; // Ensure correct paths in `assets`
+import Link from "next/link";
 
 const Sidebar = () => {
     return (
@@ -10,7 +10,9 @@ const Sidebar = () => {
             <div className="flex flex-col w-28 sm:w-80 bg-slate-100 border-l border-black relative">
                 {/* Logo Section */}
                 <div className="px-2 sm:pl-14 py-3 border-b border-black">
-                    <Image src={assets.logo} width={120} alt="Logo" priority />
+                    <Link href={'/'}>
+                        <Image src={assets.logo} width={120} alt="Logo" priority />
+                    </Link>
                 </div>
 
                 {/* Content Section */}

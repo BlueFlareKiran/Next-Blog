@@ -1,25 +1,28 @@
 import { assets } from "@/Assets/assets";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import axios from "axios";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 const Header = () => {
-
     const [email, setEmail] = useState("");
+
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("email", email);
-        const response=await axios.post('/api/email',formData);
-        if(response.data.success){
+        const response = await axios.post('/api/email', formData);
+        if (response.data.success) {
             toast.success(response.data.msg);
             setEmail("");
-        }
-        else {
+        } else {
             toast.error("Error");
         }
-    }
+    };
+
+    const handleGetStartedClick = () => {
+        window.location.href = "http://localhost:3000/admin"; // Navigate to /admin
+    };
 
     return (
         <div className="py-5 px-5 md:px-12 lg:px-28">
@@ -31,7 +34,10 @@ const Header = () => {
                     alt="Logo"
                     className="w-[130px] sm:w-auto"
                 />
-                <button className="flex items-center gap-2 font-medium text-black border border-black py-1 px-3 sm:py-3 sm:px-6 shadow-[-7px_7px_0px_#000000] hover:bg-gray-100">
+                <button
+                    onClick={handleGetStartedClick} // Add click handler
+                    className="flex items-center gap-2 font-medium text-black border border-black py-1 px-3 sm:py-3 sm:px-6 shadow-[-7px_7px_0px_#000000] hover:bg-gray-100"
+                >
                     Get Started
                 </button>
             </div>
@@ -62,7 +68,6 @@ const Header = () => {
                     aria-label="Email Address"
                 />
                 <button
-
                     className="border-l border-black bg-black text-white py-3 px-6 sm:px-8 hover:bg-gray-700 active:bg-gray-600"
                     type="submit"
                 >
